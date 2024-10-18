@@ -20,5 +20,8 @@
   "bugs": {
     "url": "https://github.com/Khoi67/backend-zero/issues"
   },
-  "homepage": "https://github.com/Khoi67/backend-zero#readme"
+  "homepage": "https://github.com/Khoi67/backend-zero#readme",
+  "dependencies": {
+    "express": "4.18.2"
+  }
 }
