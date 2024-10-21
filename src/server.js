@@ -4,6 +4,7 @@ const express = require("express"); //commonjs
 const path = require("path");
 const configViewEngine = require("./config/viewEngine");
 const webRoutes = require("./routes/web"); 
+const connection = require("./config/database");
 
 const app = express();
 const port = process.env.PORT;
@@ -14,16 +15,6 @@ configViewEngine(app);
 
 //khai báo route
 app.use('/', webRoutes);
-
-//test connection
-const mysql = require("mysql2");
-const connection = mysql.createConnection({
-  host: 'localhost',
-  port: '3307', //default 3306
-  user: 'root',
-  database: 'hoidanit',
-  password: '123456',
-})
 
 //simple query
 connection.query(
