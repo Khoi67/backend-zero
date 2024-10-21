@@ -15,6 +15,24 @@ configViewEngine(app);
 //khai báo route
 app.use('/', webRoutes);
 
+//test connection
+const mysql = require("mysql2");
+const connection = mysql.createConnection({
+  host: 'localhost',
+  port: '3307', //default 3306
+  user: 'root',
+  database: 'hoidanit',
+  password: '123456',
+})
+
+//simple query
+connection.query(
+  "SELECT * FROM Users",
+  function(error, results, fields) {
+    console.log("Result: ",results);
+  }
+)
+
 app.listen(port, hostname, () => {
   console.log(`Example app listening on port ${port}`);
 });
