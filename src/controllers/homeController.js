@@ -12,4 +12,9 @@ const getKhoi = (req, res) => {
   res.render("sample.ejs");
 };
 
-module.exports = { getHomePage, getAbout, getKhoi };
+const postCreateUser = (req, res) => {
+  console.log(">>>>Req.body: ",req.body)
+  res.send("Create user with post method");
+};
+
+module.exports = { getHomePage, getAbout, getKhoi, postCreateUser };
