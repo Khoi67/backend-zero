@@ -1,5 +1,10 @@
 const connection = require("../config/database");
-const { getAllUsers, getUserById, updateUserById } = require("../services/CRUDService");
+const {
+  getAllUsers,
+  getUserById,
+  updateUserById,
+  deleteUserById,
+} = require("../services/CRUDService");
 
 const getHomePage = async (req, res) => {
   let results = await getAllUsers();
@@ -34,13 +39,22 @@ const postUpdateUser = async (req, res) => {
     await updateUserById(email, name, city, id);
 
     // res.send("Update user successfully!");
-    res.redirect("/")
+    res.redirect("/");
   } catch (error) {
     console.error(error);
     res.status(500).send("Error update user");
   }
 };
-// create user
+const postDeleteUser = async (req, res) => {
+  try {
+    const id = req.params.id;
+    let user = await getUserById(id);
+    res.render("delete.ejs", { user: user });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Error delete user");
+  }
+};
 const getCreatePage = (req, res) => {
   return res.render("create.ejs");
 };
@@ -52,7 +66,13 @@ const getUpdatePage = async (req, res) => {
 
   return res.render("edit.ejs", { user: user });
 };
+const postRemoveUser = async (req, res) => {
+  const id = req.body.id;
 
+  await deleteUserById(id);
+  
+  res.redirect("/");
+};
 module.exports = {
   getHomePage,
   getAbout,
@@ -60,5 +80,7 @@ module.exports = {
   postCreateUser,
   getCreatePage,
   getUpdatePage,
-  postUpdateUser
+  postUpdateUser,
+  postDeleteUser,
+  postRemoveUser,
 };
