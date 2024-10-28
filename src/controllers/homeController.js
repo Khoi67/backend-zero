@@ -11,24 +11,31 @@ const getKhoi = (req, res) => {
   res.render("sample.ejs");
 };
 
-const postCreateUser = (req, res) => {
-  // let email = req.body.email;
-  // let name = req.body.name;
-  // let city = req.body.city;
-
-  let { email, name, city } = req.body;
-  console.log(">>>>Email = ", email, "Name = ", name, "City = ", city);
-
-  // INSERT INTO Users (email, name, city)
-  // VALUES ("test@gmail.com", "Kit", "Sai Gon")
-  connection.query(
-    `INSERT INTO Users (email, name, city) VALUES (?, ?, ?)`,
-    [email, name, city],
-    function (error, results) {
-      console.log(results);
-      res.send("Create user successfully!");
-    }
-  );
+// create user
+const getCreatePage = (req, res) => {
+  return res.render("create.ejs");
 };
 
-module.exports = { getHomePage, getAbout, getKhoi, postCreateUser };
+const postCreateUser = async (req, res) => {
+  try {
+    let { email, name, city } = req.body;
+    let [results, fields] = await connection.query(
+      'INSERT INTO Users (email, name, city) VALUES (?, ?, ?)',
+      [email, name, city]
+    );
+
+    res.send("Create user successfully!");
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Error creating user");
+  }
+};
+
+
+module.exports = {
+  getHomePage,
+  getAbout,
+  getKhoi,
+  postCreateUser,
+  getCreatePage,
+};
