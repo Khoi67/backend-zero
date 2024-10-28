@@ -13,7 +13,6 @@
     </div>
     <div class="w3-container">
       <h2>Users Information</h2>
-
       <table class="w3-table-all w3-hoverable">
         <thead>
           <tr class="w3-light-grey">
@@ -21,14 +20,21 @@
             <th>Email</th>
             <th>Name</th>
             <th>City</th>
+            <th>Actions</th>
           </tr>
         </thead>
+        <% for (let i = 0; i < listUsers.length; i++){%>
         <tr>
-          <td>1</td>
-          <td>Jill</td>
-          <td>Smith</td>
-          <td>50</td>
+          <td><%= listUsers[i].id %></td>
+          <td><%= listUsers[i].email %></td>
+          <td><%= listUsers[i].name %></td>
+          <td><%= listUsers[i].city %></td>
+          <td>
+            <button>Edit</button>
+            <button>Delete</button>
+          </td>
         </tr>
+        <%}%>
       </table>
     </div>
   </body>
